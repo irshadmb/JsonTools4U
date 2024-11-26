@@ -27,7 +27,7 @@ Follow these steps to get your project up and running on your local machine.
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/stringtojson.git
+    git clone https://github.com/irshadmb/stringtojson.git
     ```
 
 2. Navigate into the project directory:
