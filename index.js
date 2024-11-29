@@ -1,11 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 const port = 3000;
 
+
 // Middleware to parse text/plain bodies
 app.use(bodyParser.text());
+
+// Serve static files from the current directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Route to serve the home page
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.post('/convert', (req, res) => {
     const requestBody = req.body;
