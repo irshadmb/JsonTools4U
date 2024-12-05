@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { convertStringToJson } = require('./controllers/convertController');
+const { convertStringToJson, validateJson } = require('./controllers/convertController');
 
 const app = express();
 const port = 3000;
@@ -9,6 +9,7 @@ const port = 3000;
 
 // Middleware to parse text/plain bodies
 app.use(bodyParser.text());
+app.use(express.json())
 
 // Serve static files from the current directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -20,6 +21,9 @@ app.get('/', (req, res) => {
 
 // Use the controller for the convert route
 app.post('/convert', convertStringToJson);
+
+// New validate route
+app.post('/validate', validateJson);
 
 // Start the server
 app.listen(port, () => {
