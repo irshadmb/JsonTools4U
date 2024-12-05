@@ -27,7 +27,7 @@ Follow these steps to get your project up and running on your local machine.
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/stringtojson.git
+    git clone https://github.com/irshadmb/stringtojson.git
     ```
 
 2. Navigate into the project directory:
@@ -226,6 +226,7 @@ curl -X POST \
     }
 }'
 ```
+
 #### POST /yaml2json
 - **Description**: Converts YAML/YML content to JSON
 - **Request Body**: 
@@ -302,3 +303,4 @@ curl -X POST \
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+
