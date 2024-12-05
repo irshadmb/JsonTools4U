@@ -119,8 +119,9 @@
                     <h3 style="color: #2e7d32; margin-bottom: 1rem;">Key Features</h3>
                     <ul style="list-style-type: disc; padding-left: 1.5rem;">
                         <li>Double JSON string parsing</li>
+                        <li>JSON structure validation</li>
                         <li>Error handling for invalid JSON</li>
-                        <li>Simple REST API endpoint</li>
+                        <li>Simple REST API endpoints</li>
                         <li>Lightweight and fast</li>
                     </ul>
                 </div>
@@ -128,19 +129,31 @@
                 <div class="feature-box">
                     <h3 style="color: #6a1b9a; margin-bottom: 1rem;">How to Use</h3>
                     <ol style="list-style-type: decimal; padding-left: 1.5rem;">
-                        <li>Send a POST request to /convert</li>
-                        <li>Include your JSON string in the request body</li>
-                        <li>Receive parsed JSON or error response</li>
+                        <li>Send a POST request to /convert or /validate</li>
+                        <li>Include your JSON in the request body</li>
+                        <li>Receive parsed JSON or validation response</li>
                     </ol>
                 </div>
             </div>
 
             <div class="example-section">
-                <h3 style="color: #37474f; margin-bottom: 1rem;">Example Request</h3>
+                <h3 style="color: #37474f; margin-bottom: 1rem;">Example Requests</h3>
+                
+                <h4 style="color: #37474f; margin: 1rem 0;">1. Convert Endpoint</h4>
                 <pre><code>POST /convert
 Content-Type: text/plain
 
 "{\"name\":\"John\",\"details\":{\"age\":30,\"city\":\"New York\"}}"</code></pre>
+
+                <h4 style="color: #37474f; margin: 1rem 0;">2. Validate Endpoint</h4>
+                <pre><code>POST /validate
+Content-Type: application/json
+
+{
+    "name": "John",
+    "age": 30,
+    "email": "john@example.com"
+}</code></pre>
             </div>
         </div>
     </div>
