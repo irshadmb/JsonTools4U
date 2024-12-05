@@ -225,6 +225,80 @@ curl -X POST \
         ]
     }
 }'
+```
+#### POST /yaml2json
+- **Description**: Converts YAML/YML content to JSON
+- **Request Body**: 
+    YAML content as plain text:
+    ```yaml
+    user:
+      name: John Doe
+      age: 30
+      address:
+        street: 123 Main St
+        city: New York
+        country: USA
+      hobbies:
+        - reading
+        - gaming
+        - traveling
+    ```
+- **Content-Type**: `text/plain`
+
+- **Response**:
+    Successful conversion:
+    ```json
+    {
+        "success": true,
+        "message": "YAML successfully converted to JSON",
+        "data": {
+            "user": {
+                "name": "John Doe",
+                "age": 30,
+                "address": {
+                    "street": "123 Main St",
+                    "city": "New York",
+                    "country": "USA"
+                },
+                "hobbies": [
+                    "reading",
+                    "gaming",
+                    "traveling"
+                ]
+            }
+        },
+        "originalYaml": "user:\n  name: John Doe\n  age: 30..."
+    }
+    ```
+    
+    Invalid YAML or error:
+    ```json
+    {
+        "success": false,
+        "message": "Error converting YAML to JSON",
+        "error": "end of the stream or a document separator is expected",
+        "providedInput": "invalid: yaml: content:"
+    }
+    ```
+
+Example Usage:
+```bash
+curl -X POST \
+  http://localhost:3000/yaml2json \
+  -H 'Content-Type: text/plain' \
+  -d 'user:
+  name: John Doe
+  age: 30
+  address:
+    street: 123 Main St
+    city: New York
+    country: USA
+  hobbies:
+    - reading
+    - gaming
+    - traveling'
+```
+
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { convertStringToJson, validateJson, queryJsonPath } = require('./controllers/convertController');
+const { convertStringToJson, validateJson, queryJsonPath, convertYamlToJson } = require('./controllers/convertController');
 
 const app = express();
 const port = 3000;
@@ -27,6 +27,9 @@ app.post('/validate', validateJson);
 
 // New JSONPath query endpoint
 app.post('/query', queryJsonPath);
+
+// New YAML conversion endpoint
+app.post('/yaml2json', convertYamlToJson);
 
 // Start the server
 app.listen(port, () => {
