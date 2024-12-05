@@ -83,6 +83,67 @@ Once you've installed the dependencies, you can start the application.
     }
     ```
 
+#### POST /validate
+- **Description**: Validates JSON structure and provides detailed validation results.
+- **Request Body**: 
+    Can accept either a JSON object or a JSON string:
+    ```json
+    {
+        "name": "John",
+        "age": 30,
+        "email": "john@example.com"
+    }
+    ```
+- **Content-Type**: 
+    - `application/json` for JSON objects
+    - `text/plain` for JSON strings
+
+- **Response**:
+    If the JSON is valid:
+    ```json
+    {
+        "success": true,
+        "message": "JSON is valid",
+        "validation": {
+            "isValid": true,
+            "issues": []
+        },
+        "data": {
+            "name": "John",
+            "age": 30,
+            "email": "john@example.com"
+        }
+    }
+    ```
+    If the JSON has validation issues:
+    ```json
+    {
+        "success": true,
+        "message": "JSON has potential issues",
+        "validation": {
+            "isValid": false,
+            "issues": [
+                "Null value found at 'email'",
+                "Undefined value found at 'address'"
+            ]
+        },
+        "data": {
+            "name": "John",
+            "age": 30,
+            "email": null,
+            "address": undefined
+        }
+    }
+    ```
+    If the JSON is invalid:
+    ```json
+    {
+        "success": false,
+        "message": "Invalid JSON format",
+        "error": "Unexpected token in JSON at position 0",
+        "providedInput": "Invalid JSON string"
+    }
+    ```
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
