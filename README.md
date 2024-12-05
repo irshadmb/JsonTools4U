@@ -1,4 +1,4 @@
-![JsonTools4U](images/hero_image.webp)
+![JsonTools4U](hero_image.webp)
 
 # JsonTools4U
 
