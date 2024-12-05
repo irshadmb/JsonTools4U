@@ -1,4 +1,4 @@
-# stringtojson
+# JsonTools4U
 
 A simple Node.js application that converts a stringified JSON into a JSON object using Express and `body-parser`.
 
