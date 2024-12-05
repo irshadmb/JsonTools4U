@@ -144,6 +144,87 @@ Once you've installed the dependencies, you can start the application.
         "providedInput": "Invalid JSON string"
     }
     ```
+
+#### POST /query
+- **Description**: Executes JSONPath queries on JSON data
+- **Request Body**: 
+    A JSON object to query:
+    ```json
+    {
+        "store": {
+            "book": [
+                {
+                    "category": "reference",
+                    "author": "Nigel Rees",
+                    "title": "Sayings of the Century",
+                    "price": 8.95
+                },
+                {
+                    "category": "fiction",
+                    "author": "J. R. R. Tolkien",
+                    "title": "The Lord of the Rings",
+                    "price": 22.99
+                }
+            ]
+        }
+    }
+    ```
+- **Query Parameters**:
+    - `path`: JSONPath expression to evaluate (required)
+    Example: `?path=$.store.book[*].author`
+
+- **Content-Type**: `application/json`
+
+- **Response**:
+    Successful query:
+    ```json
+    {
+        "success": true,
+        "message": "JSONPath query executed successfully",
+        "query": "$.store.book[*].author",
+        "result": [
+            "Nigel Rees",
+            "J. R. R. Tolkien"
+        ],
+        "originalData": {
+            // Original JSON data
+        }
+    }
+    ```
+    
+    Invalid query or error:
+    ```json
+    {
+        "success": false,
+        "message": "Error executing JSONPath query",
+        "error": "Invalid JSONPath expression",
+        "query": "$.invalid.path"
+    }
+    ```
+
+Example Usage:
+```bash
+curl -X POST \
+  'http://localhost:3000/query?path=$.store.book[*].author' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "store": {
+        "book": [
+            {
+                "category": "reference",
+                "author": "Nigel Rees",
+                "title": "Sayings of the Century",
+                "price": 8.95
+            },
+            {
+                "category": "fiction",
+                "author": "J. R. R. Tolkien",
+                "title": "The Lord of the Rings",
+                "price": 22.99
+            }
+        ]
+    }
+}'
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.

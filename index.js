@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { convertStringToJson, validateJson } = require('./controllers/convertController');
+const { convertStringToJson, validateJson, queryJsonPath } = require('./controllers/convertController');
 
 const app = express();
 const port = 3000;
@@ -24,6 +24,9 @@ app.post('/convert', convertStringToJson);
 
 // New validate route
 app.post('/validate', validateJson);
+
+// New JSONPath query endpoint
+app.post('/query', queryJsonPath);
 
 // Start the server
 app.listen(port, () => {
