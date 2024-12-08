@@ -14,7 +14,7 @@ A simple Node.js application that converts a stringified JSON into a JSON object
 
 ## Description
 
-`stringtojson` is a Node.js application built using Express.js. It accepts a stringified JSON as input via a POST request and converts it into a JSON object. This is useful for handling and parsing raw JSON data passed as strings in HTTP requests.
+`jsontools4u` is a Node.js application built using Express.js. It accepts a stringified JSON as input via a POST request and converts it into a JSON object. This is useful for handling and parsing raw JSON data passed as strings in HTTP requests.
 
 ## Installation
 
