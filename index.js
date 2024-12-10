@@ -1,7 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { convertStringToJson, validateJson, queryJsonPath, convertYamlToJson } = require('./controllers/convertController');
+const { convertYamlToJson } = require('./controllers/convertController');
+const { convertStringToJson } = require('./controllers/convertStringToJson');
+const { validateJson } = require('./controllers/validateJson');
+const { queryJsonPath } = require('./controllers/queryJsonPath');
+
 
 const app = express();
 const port = 3000;
