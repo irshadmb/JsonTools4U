@@ -115,17 +115,18 @@
             </div>
 
             <div class="feature-grid">
-            <div class="feature-box">
-                <h3 style="color: #2e7d32; margin-bottom: 1rem;">Key Features</h3>
-                <ul style="list-style-type: disc; padding-left: 1.5rem;">
-                    <li>Double JSON string parsing</li>
-                    <li>JSON structure validation</li>
-                    <li>JSONPath query support</li>
-                    <li>Error handling for invalid JSON</li>
-                    <li>Simple REST API endpoints</li>
-                    <li>Lightweight and fast</li>
-                </ul>
-            </div>
+                <div class="feature-box">
+                    <h3 style="color: #2e7d32; margin-bottom: 1rem;">Key Features</h3>
+                    <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                        <li>Double JSON string parsing</li>
+                        <li>JSON structure validation</li>
+                        <li>JSONPath query support</li>
+                        <li>YAML to JSON conversion</li>
+                        <li>Error handling for invalid JSON</li>
+                        <li>Simple REST API endpoints</li>
+                        <li>Lightweight and fast</li>
+                    </ul>
+                </div>
 
             <div class="feature-box">
                 <h3 style="color: #6a1b9a; margin-bottom: 1rem;">How to Use</h3>
@@ -170,6 +171,24 @@
                     ]
                 }
             }</code></pre>
+            
+           
+                
+                <h4 style="color: #37474f; margin: 1rem 0;">4. YAML to JSON Endpoint</h4>
+                <pre><code>POST /yaml2json
+            Content-Type: text/plain
+            
+            user:
+              name: John Doe
+              age: 30
+              address:
+                street: 123 Main St
+                city: New York
+                country: USA
+              hobbies:
+                - reading
+                - gaming
+                - traveling</code></pre>
             </div>
 </body>
 </html>
