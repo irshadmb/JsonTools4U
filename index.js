@@ -5,6 +5,7 @@ const { convertYamlToJson } = require('./controllers/convertController');
 const { convertStringToJson } = require('./controllers/convertStringToJson');
 const { validateJson } = require('./controllers/validateJson');
 const { queryJsonPath } = require('./controllers/queryJsonPath');
+const { convertXmlToJson } = require('./controllers/convertXmlToJson');
 
 
 const app = express();
@@ -34,6 +35,9 @@ app.post('/query', queryJsonPath);
 
 // New YAML conversion endpoint
 app.post('/yaml2json', convertYamlToJson);
+
+// New XML conversion endpoint
+app.post('/xml2json', convertXmlToJson);
 
 // Start the server
 app.listen(port, () => {

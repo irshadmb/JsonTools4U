@@ -299,6 +299,75 @@ curl -X POST \
     - traveling'
 ```
 
+#### POST /xml2json
+- **Description**: Converts XML content to JSON
+- **Request Body**: 
+    XML content as plain text:
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <user>
+        <name>John Doe</name>
+        <age>30</age>
+        <address>
+            <street>123 Main St</street>
+            <city>New York</city>
+            <country>USA</country>
+        </address>
+        <hobbies>
+            <hobby>reading</hobby>
+            <hobby>gaming</hobby>
+            <hobby>traveling</hobby>
+        </hobbies>
+    </user>
+    ```
+- **Content-Type**: `text/plain`
+
+- **Response**:
+    Successful conversion:
+    ```json
+    {
+        "success": true,
+        "message": "XML successfully converted to JSON",
+        "data": {
+            "user": {
+                "name": "John Doe",
+                "age": "30",
+                "address": {
+                    "street": "123 Main St",
+                    "city": "New York",
+                    "country": "USA"
+                },
+                "hobbies": {
+                    "hobby": ["reading", "gaming", "traveling"]
+                }
+            }
+        },
+        "originalXml": "<?xml version=\"1.0\"...>"
+    }
+    ```
+
+Example Usage:
+```bash
+curl -X POST \
+  http://localhost:3000/xml2json \
+  -H 'Content-Type: text/plain' \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+<user>
+    <name>John Doe</name>
+    <age>30</age>
+    <address>
+        <street>123 Main St</street>
+        <city>New York</city>
+        <country>USA</country>
+    </address>
+    <hobbies>
+        <hobby>reading</hobby>
+        <hobby>gaming</hobby>
+        <hobby>traveling</hobby>
+    </hobbies>
+</user>'
+```
+
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
