@@ -122,6 +122,7 @@
                         <li>JSON structure validation</li>
                         <li>JSONPath query support</li>
                         <li>YAML to JSON conversion</li>
+                        <li>XML to JSON conversion</li>
                         <li>Error handling for invalid JSON</li>
                         <li>Simple REST API endpoints</li>
                         <li>Lightweight and fast</li>
@@ -189,6 +190,29 @@
                 - reading
                 - gaming
                 - traveling</code></pre>
+
+                <!-- Add this in the example-section div after other examples -->
+                <h4 style="color: #37474f; margin: 1rem 0;">5. XML to JSON Endpoint</h4>
+                <pre><code>POST /xml2json
+                    Content-Type: text/plain
+                    
+                    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                    &lt;user&gt;
+                        &lt;name&gt;John Doe&lt;/name&gt;
+                        &lt;age&gt;30&lt;/age&gt;
+                        &lt;address&gt;
+                            &lt;street&gt;123 Main St&lt;/street&gt;
+                            &lt;city&gt;New York&lt;/city&gt;
+                            &lt;country&gt;USA&lt;/country&gt;
+                        &lt;/address&gt;
+                        &lt;hobbies&gt;
+                            &lt;hobby&gt;reading&lt;/hobby&gt;
+                            &lt;hobby&gt;gaming&lt;/hobby&gt;
+                            &lt;hobby&gt;traveling&lt;/hobby&gt;
+                        &lt;/hobbies&gt;
+                    &lt;/user&gt;
+                    </code></pre>
+                    
             </div>
 </body>
 </html>
