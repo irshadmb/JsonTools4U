@@ -123,6 +123,9 @@
                         <li>JSONPath query support</li>
                         <li>YAML to JSON conversion</li>
                         <li>XML to JSON conversion</li>
+                        <li>Data Validation Rules Builder</li>
+                        <li>Custom validation patterns</li>
+                        <li>Multi-field validation</li>
                         <li>Error handling for invalid JSON</li>
                         <li>Simple REST API endpoints</li>
                         <li>Lightweight and fast</li>
@@ -213,6 +216,61 @@
                     &lt;/user&gt;
                     </code></pre>
                     
+                    <!-- Add this inside the feature-grid div after the existing feature boxes -->
+                    <div class="feature-box" style="background: linear-gradient(145deg, #e8f5e9, #c8e6c9);">
+                        <h3 style="color: #2e7d32; margin-bottom: 1rem;">Data Validation Rules Builder</h3>
+                        <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                            <li>Build custom validation rules</li>
+                            <li>Support for multiple data types</li>
+                            <li>Format validation (email, date, URI)</li>
+                            <li>Array and object validation</li>
+                            <li>Custom error messages</li>
+                            <li>Reusable validation templates</li>
+                        </ul>
+                    </div>
+
+                    <!-- Add this in the example-section div after other examples -->
+                    <h4 style="color: #37474f; margin: 1rem 0;">6. Build Validation Rule</h4>
+                    <pre><code>POST /build-validation-rule
+                    Content-Type: application/json
+
+                    {
+                        "fieldName": "email",
+                        "ruleType": "string",
+                        "parameters": {
+                            "required": true,
+                            "format": "email",
+                            "minLength": 5,
+                            "maxLength": 100
+                        }
+                    }</code></pre>
+
+                    <h4 style="color: #37474f; margin: 1rem 0;">7. Validate With Rules</h4>
+                    <pre><code>POST /validate-with-rules
+                    Content-Type: application/json
+
+                    {
+                        "data": {
+                            "email": "john@example.com",
+                            "age": 25
+                        },
+                        "rules": [
+                            {
+                                "field": "email",
+                                "type": "string",
+                                "required": true,
+                                "format": "email"
+                            },
+                            {
+                                "field": "age",
+                                "type": "number",
+                                "required": true,
+                                "minimum": 18,
+                                "maximum": 100
+                            }
+                        ]
+                    }</code></pre>
+
             </div>
 </body>
 </html>

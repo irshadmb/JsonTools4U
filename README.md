@@ -370,7 +370,76 @@ curl -X POST \
     </hobbies>
 </user>'
 ```
+#### POST /build-validation-rule
+- **Description**: Builds a validation rule for data validation
+- **Request Body**: 
+    ```json
+    {
+        "fieldName": "email",
+        "ruleType": "string",
+        "parameters": {
+            "required": true,
+            "format": "email",
+            "minLength": 5,
+            "maxLength": 100
+        }
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "success": true,
+        "message": "Validation rule generated successfully",
+        "rule": {
+            "field": "email",
+            "type": "string",
+            "required": true,
+            "minLength": 5,
+            "maxLength": 100,
+            "format": "email"
+        }
+    }
+    ```
 
+#### POST /validate-with-rules
+- **Description**: Validates data against a set of validation rules
+- **Request Body**:
+    ```json
+    {
+        "data": {
+            "email": "john@example.com",
+            "age": 25,
+            "name": "John Doe"
+        },
+        "rules": [
+            {
+                "field": "email",
+                "type": "string",
+                "required": true,
+                "format": "email"
+            },
+            {
+                "field": "age",
+                "type": "number",
+                "required": true,
+                "minimum": 18,
+                "maximum": 100
+            }
+        ]
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "success": true,
+        "message": "Validation passed",
+        "results": {
+            "valid": true,
+            "errors": []
+        }
+    }
+    ```
+    
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
