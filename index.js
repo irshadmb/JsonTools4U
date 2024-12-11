@@ -6,6 +6,7 @@ const { convertStringToJson } = require('./controllers/convertStringToJson');
 const { validateJson } = require('./controllers/validateJson');
 const { queryJsonPath } = require('./controllers/queryJsonPath');
 const { convertXmlToJson } = require('./controllers/convertXmlToJson');
+const { buildValidationRule, validateWithRules } = require('./controllers/validationRulesBuilder');
 
 
 const app = express();
@@ -38,6 +39,10 @@ app.post('/yaml2json', convertYamlToJson);
 
 // New XML conversion endpoint
 app.post('/xml2json', convertXmlToJson);
+
+// New Validation rule generator and validator.
+app.post('/build-validation-rule', buildValidationRule);
+app.post('/validate-with-rules', validateWithRules);
 
 // Start the server
 app.listen(port, () => {
