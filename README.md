@@ -436,6 +436,84 @@ curl -X POST \
         }
     }
     ```
+
+#### POST /map-json
+- **Description**: Maps data from source JSON to target JSON structure using mapping rules
+- **Request Body**: 
+    ```json
+    {
+        "sourceData": {
+            "user": {
+                "firstName": "John",
+                "lastName": "Doe",
+                "contact": {
+                    "email": "john.doe@example.com",
+                    "phone": "1234567890"
+                },
+                "addresses": [
+                    {
+                        "type": "home",
+                        "street": "123 Main St"
+                    }
+                ]
+            }
+        },
+        "targetStructure": {
+            "person": {
+                "fullName": "",
+                "contactInfo": {
+                    "emailAddress": "",
+                    "phoneNumber": ""
+                },
+                "homeAddress": ""
+            }
+        },
+        "mappingRules": [
+            {
+                "sourcePath": "user.firstName",
+                "targetPath": "person.fullName",
+                "transform": {
+                    "type": "custom",
+                    "function": "return value + ' ' + sourceData.user.lastName"
+                }
+            },
+            {
+                "sourcePath": "user.contact.email",
+                "targetPath": "person.contactInfo.emailAddress"
+            },
+            {
+                "sourcePath": "user.contact.phone",
+                "targetPath": "person.contactInfo.phoneNumber"
+            },
+            {
+                "sourcePath": "user.addresses[0].street",
+                "targetPath": "person.homeAddress"
+            }
+        ]
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "success": true,
+        "message": "JSON data mapped successfully",
+        "result": {
+            "person": {
+                "fullName": "John Doe",
+                "contactInfo": {
+                    "emailAddress": "john.doe@example.com",
+                    "phoneNumber": "1234567890"
+                },
+                "homeAddress": "123 Main St"
+            }
+        },
+        "original": {
+            "source": { ... },
+            "target": { ... },
+            "mappingRules": [ ... ]
+        }
+    }
+    ```
     
 ## License
 
