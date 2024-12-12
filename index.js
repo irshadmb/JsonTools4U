@@ -8,6 +8,7 @@ const { queryJsonPath } = require('./controllers/queryJsonPath');
 const { convertXmlToJson } = require('./controllers/convertXmlToJson');
 const { buildValidationRule, validateWithRules } = require('./controllers/validationRulesBuilder');
 const { mapJsonData } = require('./controllers/jsonDataMapper');
+const { convertCsvToJson } = require('./controllers/convertCsvToJson');
 
 
 const app = express();
@@ -47,6 +48,9 @@ app.post('/validate-with-rules', validateWithRules);
 
 // New JSON Data mapping endpoint
 app.post('/map-json', mapJsonData);
+
+// New CSV to Json Conversion
+app.post('/csv2json', convertCsvToJson);
 
 // Start the server
 app.listen(port, () => {

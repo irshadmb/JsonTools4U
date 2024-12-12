@@ -517,6 +517,69 @@ curl -X POST \
         }
     }
     ```
+
+#### POST /csv2json
+- **Description**: Converts CSV content to JSON
+- **Request Body**: 
+    CSV content as plain text:
+    ```csv
+    name,age,email,city
+    John Doe,30,john@example.com,New York
+    Jane Smith,25,jane@example.com,Los Angeles
+    Bob Johnson,35,bob@example.com,Chicago
+    ```
+- **Content-Type**: `text/plain`
+
+- **Response**:
+    Successful conversion:
+    ```json
+    {
+        "success": true,
+        "message": "CSV successfully converted to JSON",
+        "data": [
+            {
+                "name": "John Doe",
+                "age": 30,
+                "email": "john@example.com",
+                "city": "New York"
+            },
+            {
+                "name": "Jane Smith",
+                "age": 25,
+                "email": "jane@example.com",
+                "city": "Los Angeles"
+            },
+            {
+                "name": "Bob Johnson",
+                "age": 35,
+                "email": "bob@example.com",
+                "city": "Chicago"
+            }
+        ],
+        "originalCsv": "name,age,email,city\nJohn Doe,30,..."
+    }
+    ```
+    
+    Invalid CSV or error:
+    ```json
+    {
+        "success": false,
+        "message": "Error converting CSV to JSON",
+        "error": "Invalid CSV format",
+        "providedInput": "invalid,csv,content"
+    }
+    ```
+
+    Example Usage:
+    ```bash
+    curl -X POST \
+    http://localhost:3000/csv2json \
+    -H 'Content-Type: text/plain' \
+    -d 'name,age,email,city
+    John Doe,30,john@example.com,New York
+    Jane Smith,25,jane@example.com,Los Angeles
+    Bob Johnson,35,bob@example.com,Chicago'
+    ```
     
 ## License
 
