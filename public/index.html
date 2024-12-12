@@ -142,6 +142,18 @@
                 </ol>
             </div>
 
+            <div class="feature-box" style="background: linear-gradient(145deg, #fff3e0, #ffe0b2);">
+                <h3 style="color: #e65100; margin-bottom: 1rem;">JSON Data Mapper</h3>
+                <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                    <li>Map data between different JSON structures</li>
+                    <li>Support for nested objects and arrays</li>
+                    <li>Custom data transformations</li>
+                    <li>Flexible path-based mapping</li>
+                    <li>Built-in data type conversions</li>
+                </ul>
+            </div>
+            </div>
+
             <div class="example-section">
                 <h3 style="color: #37474f; margin-bottom: 1rem;">Example Requests</h3>
                 
@@ -267,6 +279,42 @@
                                 "required": true,
                                 "minimum": 18,
                                 "maximum": 100
+                            }
+                        ]
+                    }</code></pre>
+
+                    <h4 style="color: #37474f; margin: 1rem 0;">8. JSON Data Mapping</h4>
+                    <pre><code>POST /map-json
+                    Content-Type: application/json
+
+                    {
+                        "sourceData": {
+                            "user": {
+                                "firstName": "John",
+                                "lastName": "Doe",
+                                "contact": {
+                                    "email": "john.doe@example.com"
+                                }
+                            }
+                        },
+                        "targetStructure": {
+                            "person": {
+                                "fullName": "",
+                                "email": ""
+                            }
+                        },
+                        "mappingRules": [
+                            {
+                                "sourcePath": "user.firstName",
+                                "targetPath": "person.fullName",
+                                "transform": {
+                                    "type": "custom",
+                                    "function": "return value + ' ' + sourceData.user.lastName"
+                                }
+                            },
+                            {
+                                "sourcePath": "user.contact.email",
+                                "targetPath": "person.email"
                             }
                         ]
                     }</code></pre>

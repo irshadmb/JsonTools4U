@@ -7,6 +7,7 @@ const { validateJson } = require('./controllers/validateJson');
 const { queryJsonPath } = require('./controllers/queryJsonPath');
 const { convertXmlToJson } = require('./controllers/convertXmlToJson');
 const { buildValidationRule, validateWithRules } = require('./controllers/validationRulesBuilder');
+const { mapJsonData } = require('./controllers/jsonDataMapper');
 
 
 const app = express();
@@ -43,6 +44,9 @@ app.post('/xml2json', convertXmlToJson);
 // New Validation rule generator and validator.
 app.post('/build-validation-rule', buildValidationRule);
 app.post('/validate-with-rules', validateWithRules);
+
+// New JSON Data mapping endpoint
+app.post('/map-json', mapJsonData);
 
 // Start the server
 app.listen(port, () => {
