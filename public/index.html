@@ -164,6 +164,18 @@
                     <li>Built-in data type conversions</li>
                 </ul>
             </div>
+
+            <div class="feature-box" style="background: linear-gradient(145deg, #e1f5fe, #b3e5fc);">
+                <h3 style="color: #0277bd; margin-bottom: 1rem;">CSV to JSON Converter</h3>
+                <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                    <li>Convert CSV data to JSON arrays</li>
+                    <li>Automatic header detection</li>
+                    <li>Type casting support</li>
+                    <li>Empty line skipping</li>
+                    <li>Trim whitespace</li>
+                </ul>
+            </div>
+
             </div>
 
             <div class="example-section">
@@ -218,7 +230,7 @@
                 - gaming
                 - traveling</code></pre>
 
-                <!-- Add this in the example-section div after other examples -->
+                
                 <h4 style="color: #37474f; margin: 1rem 0;">5. XML to JSON Endpoint</h4>
                 <pre><code>POST /xml2json
                     Content-Type: text/plain
@@ -240,7 +252,7 @@
                     &lt;/user&gt;
                     </code></pre>
 
-                    <!-- Add this in the example-section div after other examples -->
+                    
                     <h4 style="color: #37474f; margin: 1rem 0;">6. Build Validation Rule</h4>
                     <pre><code>POST /build-validation-rule
                     Content-Type: application/json
@@ -318,6 +330,14 @@
                         ]
                     }</code></pre>
 
+                    <h4 style="color: #37474f; margin: 1rem 0;">9. CSV to JSON Endpoint</h4>
+                    <pre><code>POST /csv2json
+                    Content-Type: text/plain
+
+                    name,age,email,city
+                    John Doe,30,john@example.com,New York
+                    Jane Smith,25,jane@example.com,Los Angeles
+                    Bob Johnson,35,bob@example.com,Chicago</code></pre>
             
 </body>
 </html>
