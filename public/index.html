@@ -176,6 +176,17 @@
                 </ul>
             </div>
 
+            <div class="feature-box" style="background: linear-gradient(145deg, #e8f5e9, #c8e6c9);">
+                <h3 style="color: #2e7d32; margin-bottom: 1rem;">JSON Object Flattening</h3>
+                <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                    <li>Flatten nested JSON objects</li>
+                    <li>Custom delimiter support</li>
+                    <li>Array index preservation</li>
+                    <li>Deep nesting support</li>
+                    <li>Path-based key generation</li>
+                </ul>
+            </div>
+
             </div>
 
             <div class="example-section">
@@ -338,6 +349,33 @@
                     John Doe,30,john@example.com,New York
                     Jane Smith,25,jane@example.com,Los Angeles
                     Bob Johnson,35,bob@example.com,Chicago</code></pre>
+
+                    <h4 style="color: #37474f; margin: 1rem 0;">10. Flatten Nested JSON</h4>
+                    <pre><code>POST /flatten
+                    Content-Type: application/json
+
+                    {
+                        "data": {
+                            "name": "John Doe",
+                            "age": 30,
+                            "address": {
+                                "street": "123 Main St",
+                                "city": "New York",
+                                "country": "USA"
+                            },
+                            "contacts": [
+                                {
+                                    "type": "email",
+                                    "value": "john@example.com"
+                                },
+                                {
+                                    "type": "phone",
+                                    "value": "1234567890"
+                                }
+                            ]
+                        },
+                        "delimiter": "."
+                    }</code></pre>
             
 </body>
 </html>

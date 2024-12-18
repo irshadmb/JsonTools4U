@@ -9,6 +9,7 @@ const { convertXmlToJson } = require('./controllers/convertXmlToJson');
 const { buildValidationRule, validateWithRules } = require('./controllers/validationRulesBuilder');
 const { mapJsonData } = require('./controllers/jsonDataMapper');
 const { convertCsvToJson } = require('./controllers/convertCsvToJson');
+const { flattenJson } = require('./controllers/flattenJson');
 
 
 const app = express();
@@ -51,6 +52,9 @@ app.post('/map-json', mapJsonData);
 
 // New CSV to Json Conversion
 app.post('/csv2json', convertCsvToJson);
+
+// New Flatten JSON
+app.post('/flatten', flattenJson);
 
 // Start the server
 app.listen(port, () => {
