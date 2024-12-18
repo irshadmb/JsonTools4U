@@ -577,7 +577,94 @@ curl -X POST \
     Jane Smith,25,jane@example.com,Los Angeles
     Bob Johnson,35,bob@example.com,Chicago'
     ```
-    
+
+ #### POST /flatten
+- **Description**: Flattens a nested JSON object into a single-level object with path-based keys.
+- **Request Body**: 
+    A JSON object containing the data to flatten and an optional delimiter:
+    ```json
+    {
+        "data": {
+            "name": "John Doe",
+            "age": 30,
+            "address": {
+                "street": "123 Main St",
+                "city": "New York",
+                "country": "USA"
+            },
+            "contacts": [
+                {
+                    "type": "email",
+                    "value": "john@example.com"
+                },
+                {
+                    "type": "phone",
+                    "value": "1234567890"
+                }
+            ]
+        },
+        "delimiter": "." // Optional, defaults to "."
+    }
+    ```
+- **Response**:
+    If flattening is successful:
+    ```json
+    {
+        "success": true,
+        "message": "JSON object flattened successfully",
+        "result": {
+            "name": "John Doe",
+            "age": 30,
+            "address.street": "123 Main St",
+            "address.city": "New York",
+            "address.country": "USA",
+            "contacts[0].type": "email",
+            "contacts[0].value": "john@example.com",
+            "contacts[1].type": "phone",
+            "contacts[1].value": "1234567890"
+        },
+        "original": {
+            // Original nested object
+        }
+    }
+    ```
+    If an error occurs:
+    ```json
+    {
+        "success": false,
+        "message": "Error flattening JSON object",
+        "error": "Invalid input structure"
+    }
+    ```
+
+Example Usage:
+```bash
+curl -X POST \
+  http://localhost:3000/flatten \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "data": {
+        "name": "John Doe",
+        "age": 30,
+        "address": {
+            "street": "123 Main St",
+            "city": "New York",
+            "country": "USA"
+        },
+        "contacts": [
+            {
+                "type": "email",
+                "value": "john@example.com"
+            },
+            {
+                "type": "phone",
+                "value": "1234567890"
+            }
+        ]
+    }
+}'
+```
+
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
