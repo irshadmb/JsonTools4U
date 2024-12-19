@@ -10,6 +10,7 @@ const { buildValidationRule, validateWithRules } = require('./controllers/valida
 const { mapJsonData } = require('./controllers/jsonDataMapper');
 const { convertCsvToJson } = require('./controllers/convertCsvToJson');
 const { flattenJson } = require('./controllers/flattenJson');
+const { convertJsonToYaml } = require('./controllers/convertJsonToYaml');
 
 
 const app = express();
@@ -55,6 +56,8 @@ app.post('/csv2json', convertCsvToJson);
 
 // New Flatten JSON
 app.post('/flatten', flattenJson);
+
+app.post('/json2yaml', convertJsonToYaml);
 
 // Start the server
 app.listen(port, () => {
