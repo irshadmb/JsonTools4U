@@ -160,6 +160,9 @@
         .xml-content { color: var(--accent-green); }
         .yaml-key { color: var(--accent-blue); }
         .yaml-value { color: var(--accent-green); }
+
+        .http-method { color: var(--accent-purple); }  /* Using the purple accent color */
+        .http-header { color: var(--accent-blue); }    /* Using the blue accent color */
     </style>
 </head>
 <body>
@@ -260,8 +263,9 @@
             <div class="feature-card">
                 <h3>1. Convert Endpoint</h3>
                 <div class="code-block">
-                    <pre><code>POST /convert
-                        Content-Type: text/plain
+                    <pre><code>
+                        <span class="http-method">POST</span> /convert
+                        <span class="http-header">Content-Type:</span> text/plain
                         
                         <span class="json-string">"{\"name\":\"John\",\"details\":{\"age\":30,\"city\":\"New York\"}}"</span></code></pre>
                 </div>
@@ -270,41 +274,46 @@
             <div class="feature-card">
                 <h3>2. Validate Endpoint</h3>
                 <div class="code-block">
-                    <pre><code>POST /validate
-            Content-Type: application/json
+                    <pre><code>
+                        <span class="http-method">POST</span> /validate
+                        <span class="http-header">Content-Type:</span> text/json
             
-            {
-                <span class="json-key">"name"</span><span class="json-punctuation">:</span> <span class="json-string">"John"</span><span class="json-punctuation">,</span>
-                <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">30</span><span class="json-punctuation">,</span>
-                <span class="json-key">"email"</span><span class="json-punctuation">:</span> <span class="json-string">"john@example.com"</span>
-            }</code></pre>
+                        {
+                            <span class="json-key">"name"</span><span class="json-punctuation">:</span> <span class="json-string">"John"</span><span class="json-punctuation">,</span>
+                            <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">30</span><span class="json-punctuation">,</span>
+                            <span class="json-key">"email"</span><span class="json-punctuation">:</span> <span class="json-string">"john@example.com"</span>
+                        }
+                    </code></pre>
                 </div>
             </div>
             
             <div class="feature-card">
                 <h3>3. JSONPath Query Endpoint</h3>
                 <div class="code-block">
-                    <pre><code>POST /query?path=$.store.book[*].author
-            Content-Type: application/json
+                    <pre><code>
+                        <span class="http-method">POST</span> /query?path=$.store.book[*].author
+                        <span class="http-header">Content-Type:</span> application/json
             
-            {
-                <span class="json-key">"store"</span><span class="json-punctuation">:</span> {
-                    <span class="json-key">"book"</span><span class="json-punctuation">:</span> [
                         {
-                            <span class="json-key">"author"</span><span class="json-punctuation">:</span> <span class="json-string">"John Smith"</span><span class="json-punctuation">,</span>
-                            <span class="json-key">"title"</span><span class="json-punctuation">:</span> <span class="json-string">"Sample Book"</span>
+                            <span class="json-key">"store"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"book"</span><span class="json-punctuation">:</span> [
+                                    {
+                                        <span class="json-key">"author"</span><span class="json-punctuation">:</span> <span class="json-string">"John Smith"</span><span class="json-punctuation">,</span>
+                                        <span class="json-key">"title"</span><span class="json-punctuation">:</span> <span class="json-string">"Sample Book"</span>
+                                    }
+                                ]
+                            }
                         }
-                    ]
-                }
-            }</code></pre>
+            </code></pre>
                 </div>
             </div>
             
             <div class="feature-card">
                 <h3>4. YAML to JSON Endpoint</h3>
                 <div class="code-block">
-                    <pre><code>POST /yaml2json
-                        Content-Type: text/plain
+                    <pre><code>
+                        <span class="http-method">POST</span> /yaml2json
+                        <span class="http-header">Content-Type:</span> text/plain
                         
                         <span class="yaml-key">user:</span>
                           <span class="yaml-key">name:</span> <span class="yaml-value">John Doe</span>
@@ -323,8 +332,9 @@
             <div class="feature-card">
                 <h3>5. XML to JSON Endpoint</h3>
                 <div class="code-block">
-                    <pre><code>POST /xml2json
-                        Content-Type: text/plain
+                    <pre><code>
+                        <span class="http-method">POST</span> /xml2json
+                        <span class="http-header">Content-Type:</span> text/plain
                         
                         <span class="xml-tag">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
                         <span class="xml-tag">&lt;user&gt;</span>
@@ -347,8 +357,9 @@
             <div class="feature-card">
                 <h3>6. Build Validation Rule</h3>
                 <div class="code-block">
-                    <pre><code>POST /build-validation-rule
-                        Content-Type: application/json
+                    <pre><code>
+                        <span class="http-method">POST</span> /build-validation-rule
+                        <span class="http-header">Content-Type:</span> application/json
                         
                         {
                             <span class="json-key">"fieldName"</span><span class="json-punctuation">:</span> <span class="json-string">"email"</span><span class="json-punctuation">,</span>
@@ -366,114 +377,116 @@
             <div class="feature-card">
                 <h3>7. Validate With Rules</h3>
                 <div class="code-block">
-                    <pre><code>POST /validate-with-rules
-Content-Type: application/json
-
-{
-    "data": {
-        "email": "user@example.com",
-        "age": 25
-    },
-    "rules": [
-        {
-            "field": "email",
-            "type": "string",
-            "required": true,
-            "format": "email"
-        },
-        {
-            "field": "age",
-            "type": "number",
-            "required": true,
-            "minimum": 18,
-            "maximum": 100
-        }
-    ]
-}</code></pre>
+                    <pre><code>
+                        <span class="http-method">POST</span> /validate-with-rules
+                        <span class="http-header">Content-Type:</span> application/json
+                        
+                        {
+                            <span class="json-key">"data"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"email"</span><span class="json-punctuation">:</span> <span class="json-string">"user@example.com"</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">25</span>
+                            }<span class="json-punctuation">,</span>
+                            <span class="json-key">"rules"</span><span class="json-punctuation">:</span> [
+                                {
+                                    <span class="json-key">"field"</span><span class="json-punctuation">:</span> <span class="json-string">"email"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"type"</span><span class="json-punctuation">:</span> <span class="json-string">"string"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"required"</span><span class="json-punctuation">:</span> <span class="json-boolean">true</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"format"</span><span class="json-punctuation">:</span> <span class="json-string">"email"</span>
+                                },
+                                {
+                                    <span class="json-key">"field"</span><span class="json-punctuation">:</span> <span class="json-string">"age"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"type"</span><span class="json-punctuation">:</span> <span class="json-string">"number"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"required"</span><span class="json-punctuation">:</span> <span class="json-boolean">true</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"minimum"</span><span class="json-punctuation">:</span> <span class="json-number">18</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"maximum"</span><span class="json-punctuation">:</span> <span class="json-number">100</span>
+                                }
+                            ]
+                        }</code></pre>
                 </div>
             </div>
 
             <div class="feature-card">
                 <h3>8. JSON Data Mapping</h3>
                 <div class="code-block">
-                    <pre><code>POST /map-json
-Content-Type: application/json
-
-{
-    "sourceData": {
-        "user": {
-            "firstName": "John",
-            "lastName": "Doe",
-            "contact": {
-                "email": "john.doe@example.com"
-            }
-        }
-    },
-    "targetStructure": {
-        "person": {
-            "fullName": "",
-            "email": ""
-        }
-    },
-    "mappingRules": [
-        {
-            "sourcePath": "user.firstName",
-            "targetPath": "person.fullName",
-            "transform": {
-                "type": "custom",
-                "function": "return value + ' ' + sourceData.user.lastName"
-            }
-        },
-        {
-            "sourcePath": "user.contact.email",
-            "targetPath": "person.email"
-        }
-    ]
-}</code></pre>
+                    
+                    <pre><code>
+                        <span class="http-method">POST</span> /map-json
+                        <span class="http-header">Content-Type:</span> application/json
+                    
+                        {
+                            <span class="json-key">"sourceData"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"user"</span><span class="json-punctuation">:</span> {
+                                    <span class="json-key">"firstName"</span><span class="json-punctuation">:</span> <span class="json-string">"John"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"lastName"</span><span class="json-punctuation">:</span> <span class="json-string">"Doe"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"contact"</span><span class="json-punctuation">:</span> {
+                                        <span class="json-key">"email"</span><span class="json-punctuation">:</span> <span class="json-string">"john.doe@example.com"</span>
+                                    }
+                                }
+                            }<span class="json-punctuation">,</span>
+                            <span class="json-key">"targetStructure"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"person"</span><span class="json-punctuation">:</span> {
+                                    <span class="json-key">"fullName"</span><span class="json-punctuation">:</span> <span class="json-string">""</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"email"</span><span class="json-punctuation">:</span> <span class="json-string">""</span>
+                                }
+                            }<span class="json-punctuation">,</span>
+                            <span class="json-key">"mappingRules"</span><span class="json-punctuation">:</span> [
+                                {
+                                    <span class="json-key">"sourcePath"</span><span class="json-punctuation">:</span> <span class="json-string">"user.firstName"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"targetPath"</span><span class="json-punctuation">:</span> <span class="json-string">"person.fullName"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"transform"</span><span class="json-punctuation">:</span> {
+                                        <span class="json-key">"type"</span><span class="json-punctuation">:</span> <span class="json-string">"custom"</span><span class="json-punctuation">,</span>
+                                        <span class="json-key">"function"</span><span class="json-punctuation">:</span> <span class="json-string">"return value + ' ' + sourceData.user.lastName"</span>
+                                    }
+                                }<span class="json-punctuation">,</span>
+                                {
+                                    <span class="json-key">"sourcePath"</span><span class="json-punctuation">:</span> <span class="json-string">"user.contact.email"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"targetPath"</span><span class="json-punctuation">:</span> <span class="json-string">"person.email"</span>
+                                }
+                            ]
+                        }
+                    </code></pre>
+                        
                 </div>
             </div>
 
             <div class="feature-card">
                 <h3>9. CSV to JSON Endpoint</h3>
                 <div class="code-block">
-                    <pre><code>POST /csv2json
-Content-Type: text/plain
-
-name,age,email,city
-John Doe,30,john@example.com,New York
-Jane Smith,25,jane@example.com,Los Angeles
-Bob Johnson,35,bob@example.com,Chicago</code></pre>
+                    <pre><code>
+                        <span class="http-method">POST</span> /csv-to-json
+                        <span class="http-header">Content-Type:</span> application/json
+                        
+                        {
+                            <span class="json-key">"csvData"</span><span class="json-punctuation">:</span> <span class="json-string">"name,age,city\nJohn,30,New York\nJane,25,Los Angeles"</span><span class="json-punctuation">,</span>
+                            <span class="json-key">"options"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"delimiter"</span><span class="json-punctuation">:</span> <span class="json-string">","</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"headers"</span><span class="json-punctuation">:</span> <span class="json-boolean">true</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"trimFields"</span><span class="json-punctuation">:</span> <span class="json-boolean">true</span>
+                            }
+                        }</code></pre>
                 </div>
             </div>
 
             <div class="feature-card">
                 <h3>10. Flatten Nested JSON</h3>
                 <div class="code-block">
-                    <pre><code>POST /flatten
-Content-Type: application/json
-
-{
-    "data": {
-        "name": "John Doe",
-        "age": 30,
-        "address": {
-            "street": "123 Main St",
-            "city": "New York",
-            "country": "USA"
-        },
-        "contacts": [
-            {
-                "type": "email",
-                "value": "john@example.com"
-            },
-            {
-                "type": "phone",
-                "value": "1234567890"
-            }
-        ]
-    },
-    "delimiter": "."
-}</code></pre>
+                    <pre><code>
+                        <span class="http-method">POST</span> /flatten-json
+                        <span class="http-header">Content-Type:</span> application/json
+                        
+                        {
+                            <span class="json-key">"data"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"name"</span><span class="json-punctuation">:</span> <span class="json-string">"John"</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"details"</span><span class="json-punctuation">:</span> {
+                                    <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">30</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"address"</span><span class="json-punctuation">:</span> {
+                                        <span class="json-key">"city"</span><span class="json-punctuation">:</span> <span class="json-string">"New York"</span><span class="json-punctuation">,</span>
+                                        <span class="json-key">"zip"</span><span class="json-punctuation">:</span> <span class="json-string">"10001"</span>
+                                    }
+                                }
+                            }<span class="json-punctuation">,</span>
+                            <span class="json-key">"separator"</span><span class="json-punctuation">:</span> <span class="json-string">"."</span>
+                        }</code></pre>
                 </div>
             </div>
         </section>
