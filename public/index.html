@@ -149,6 +149,17 @@
                 display: none;
             }
         }
+
+        .json-string { color: var(--accent-green); }
+        .json-number { color: var(--accent-purple); }
+        .json-boolean { color: var(--accent-blue); }
+        .json-null { color: #ff6464; }
+        .json-key { color: #64d2ff; }
+        .json-punctuation { color: #ffffff; }
+        .xml-tag { color: var(--accent-blue); }
+        .xml-content { color: var(--accent-green); }
+        .yaml-key { color: var(--accent-blue); }
+        .yaml-value { color: var(--accent-green); }
     </style>
 </head>
 <body>
@@ -156,7 +167,6 @@
         <div class="logo">JSON Converter</div>
         <div class="nav-links">
             <a href="#features">Features</a>
-            <a href="#documentation">Documentation</a>
             <a href="#examples">Examples</a>
             <a href="#contact">Contact</a>
         </div>
@@ -251,9 +261,9 @@
                 <h3>1. Convert Endpoint</h3>
                 <div class="code-block">
                     <pre><code>POST /convert
-Content-Type: text/plain
-
-"{\"name\":\"John\",\"details\":{\"age\":30,\"city\":\"New York\"}}"</code></pre>
+                        Content-Type: text/plain
+                        
+                        <span class="json-string">"{\"name\":\"John\",\"details\":{\"age\":30,\"city\":\"New York\"}}"</span></code></pre>
                 </div>
             </div>
             
@@ -261,13 +271,13 @@ Content-Type: text/plain
                 <h3>2. Validate Endpoint</h3>
                 <div class="code-block">
                     <pre><code>POST /validate
-Content-Type: application/json
-
-{
-    "name": "John",
-    "age": 30,
-    "email": "john@example.com"
-}</code></pre>
+            Content-Type: application/json
+            
+            {
+                <span class="json-key">"name"</span><span class="json-punctuation">:</span> <span class="json-string">"John"</span><span class="json-punctuation">,</span>
+                <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">30</span><span class="json-punctuation">,</span>
+                <span class="json-key">"email"</span><span class="json-punctuation">:</span> <span class="json-string">"john@example.com"</span>
+            }</code></pre>
                 </div>
             </div>
             
@@ -275,18 +285,18 @@ Content-Type: application/json
                 <h3>3. JSONPath Query Endpoint</h3>
                 <div class="code-block">
                     <pre><code>POST /query?path=$.store.book[*].author
-Content-Type: application/json
-
-{
-    "store": {
-        "book": [
+            Content-Type: application/json
+            
             {
-                "author": "John Smith",
-                "title": "Sample Book"
-            }
-        ]
-    }
-}</code></pre>
+                <span class="json-key">"store"</span><span class="json-punctuation">:</span> {
+                    <span class="json-key">"book"</span><span class="json-punctuation">:</span> [
+                        {
+                            <span class="json-key">"author"</span><span class="json-punctuation">:</span> <span class="json-string">"John Smith"</span><span class="json-punctuation">,</span>
+                            <span class="json-key">"title"</span><span class="json-punctuation">:</span> <span class="json-string">"Sample Book"</span>
+                        }
+                    ]
+                }
+            }</code></pre>
                 </div>
             </div>
             
@@ -294,19 +304,19 @@ Content-Type: application/json
                 <h3>4. YAML to JSON Endpoint</h3>
                 <div class="code-block">
                     <pre><code>POST /yaml2json
-Content-Type: text/plain
-
-user:
-  name: John Doe
-  age: 30
-  address:
-    street: 123 Main St
-    city: New York
-    country: USA
-  hobbies:
-    - reading
-    - gaming
-    - traveling</code></pre>
+                        Content-Type: text/plain
+                        
+                        <span class="yaml-key">user:</span>
+                          <span class="yaml-key">name:</span> <span class="yaml-value">John Doe</span>
+                          <span class="yaml-key">age:</span> <span class="yaml-value">30</span>
+                          <span class="yaml-key">address:</span>
+                            <span class="yaml-key">street:</span> <span class="yaml-value">123 Main St</span>
+                            <span class="yaml-key">city:</span> <span class="yaml-value">New York</span>
+                            <span class="yaml-key">country:</span> <span class="yaml-value">USA</span>
+                          <span class="yaml-key">hobbies:</span>
+                            - <span class="yaml-value">reading</span>
+                            - <span class="yaml-value">gaming</span>
+                            - <span class="yaml-value">traveling</span></code></pre>
                 </div>
             </div>
 
@@ -314,23 +324,23 @@ user:
                 <h3>5. XML to JSON Endpoint</h3>
                 <div class="code-block">
                     <pre><code>POST /xml2json
-Content-Type: text/plain
-
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;user&gt;
-    &lt;name&gt;John Doe&lt;/name&gt;
-    &lt;age&gt;30&lt;/age&gt;
-    &lt;address&gt;
-        &lt;street&gt;123 Main St&lt;/street&gt;
-        &lt;city&gt;New York&lt;/city&gt;
-        &lt;country&gt;USA&lt;/country&gt;
-    &lt;/address&gt;
-    &lt;hobbies&gt;
-        &lt;hobby&gt;reading&lt;/hobby&gt;
-        &lt;hobby&gt;gaming&lt;/hobby&gt;
-        &lt;hobby&gt;traveling&lt;/hobby&gt;
-    &lt;/hobbies&gt;
-&lt;/user&gt;</code></pre>
+                        Content-Type: text/plain
+                        
+                        <span class="xml-tag">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+                        <span class="xml-tag">&lt;user&gt;</span>
+                            <span class="xml-tag">&lt;name&gt;</span><span class="xml-content">John Doe</span><span class="xml-tag">&lt;/name&gt;</span>
+                            <span class="xml-tag">&lt;age&gt;</span><span class="xml-content">30</span><span class="xml-tag">&lt;/age&gt;</span>
+                            <span class="xml-tag">&lt;address&gt;</span>
+                                <span class="xml-tag">&lt;street&gt;</span><span class="xml-content">123 Main St</span><span class="xml-tag">&lt;/street&gt;</span>
+                                <span class="xml-tag">&lt;city&gt;</span><span class="xml-content">New York</span><span class="xml-tag">&lt;/city&gt;</span>
+                                <span class="xml-tag">&lt;country&gt;</span><span class="xml-content">USA</span><span class="xml-tag">&lt;/country&gt;</span>
+                            <span class="xml-tag">&lt;/address&gt;</span>
+                            <span class="xml-tag">&lt;hobbies&gt;</span>
+                                <span class="xml-tag">&lt;hobby&gt;</span><span class="xml-content">reading</span><span class="xml-tag">&lt;/hobby&gt;</span>
+                                <span class="xml-tag">&lt;hobby&gt;</span><span class="xml-content">gaming</span><span class="xml-tag">&lt;/hobby&gt;</span>
+                                <span class="xml-tag">&lt;hobby&gt;</span><span class="xml-content">traveling</span><span class="xml-tag">&lt;/hobby&gt;</span>
+                            <span class="xml-tag">&lt;/hobbies&gt;</span>
+                        <span class="xml-tag">&lt;/user&gt;</span></code></pre>
                 </div>
             </div>
 
@@ -338,18 +348,18 @@ Content-Type: text/plain
                 <h3>6. Build Validation Rule</h3>
                 <div class="code-block">
                     <pre><code>POST /build-validation-rule
-Content-Type: application/json
-
-{
-    "fieldName": "email",
-    "ruleType": "string",
-    "parameters": {
-        "required": true,
-        "format": "email",
-        "minLength": 5,
-        "maxLength": 100
-    }
-}</code></pre>
+                        Content-Type: application/json
+                        
+                        {
+                            <span class="json-key">"fieldName"</span><span class="json-punctuation">:</span> <span class="json-string">"email"</span><span class="json-punctuation">,</span>
+                            <span class="json-key">"ruleType"</span><span class="json-punctuation">:</span> <span class="json-string">"string"</span><span class="json-punctuation">,</span>
+                            <span class="json-key">"parameters"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"required"</span><span class="json-punctuation">:</span> <span class="json-boolean">true</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"format"</span><span class="json-punctuation">:</span> <span class="json-string">"email"</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"minLength"</span><span class="json-punctuation">:</span> <span class="json-number">5</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"maxLength"</span><span class="json-punctuation">:</span> <span class="json-number">100</span>
+                            }
+                        }</code></pre>
                 </div>
             </div>
 
@@ -464,6 +474,39 @@ Content-Type: application/json
     },
     "delimiter": "."
 }</code></pre>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Get in Touch</h3>
+                    <p>Have questions or need support? Reach out to us through any of these channels:</p>
+                    <ul>
+                        <li>Email: irshadmb@gmail.com</li>
+                        <li>GitHub: <a href="https://github.com/irshadmb/jsontools4u" style="color: var(--accent-blue);">irshadmb/jsontools4u</a></li>
+                    </ul>
+                </div>
+        
+                <div class="feature-card">
+                    <h3>Report Issues</h3>
+                    <p>Found a bug or want to request a feature?</p>
+                    <ul>
+                        <li>Open an issue on our <a href="https://github.com/irshadmb/jsontools4u/issues" style="color: var(--accent-blue);">GitHub Issues</a> page</li>
+                        <li>Include detailed information about the problem</li>
+                        <li>Share steps to reproduce the issue</li>
+                    </ul>
+                </div>
+        
+                <div class="feature-card">
+                    <h3>Contribute</h3>
+                    <p>Want to contribute to JsonTools4U?</p>
+                    <ul>
+                        <li>Fork the repository</li>
+                        <li>Create a feature branch</li>
+                        <li>Submit a pull request</li>
+                        <li>Follow our contribution guidelines</li>
+                    </ul>
                 </div>
             </div>
         </section>
