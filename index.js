@@ -32,31 +32,32 @@ app.get('/', (req, res) => {
 // Use the controller for the convert route
 app.post('/convert', convertStringToJson);
 
-// New validate route
+// validate route
 app.post('/validate', validateJson);
 
-// New JSONPath query endpoint
+// JSONPath query endpoint
 app.post('/query', queryJsonPath);
 
-// New YAML conversion endpoint
+// YAML conversion endpoint
 app.post('/yaml2json', convertYamlToJson);
 
-// New XML conversion endpoint
+// XML conversion endpoint
 app.post('/xml2json', convertXmlToJson);
 
-// New Validation rule generator and validator.
+// Validation rule generator and validator.
 app.post('/build-validation-rule', buildValidationRule);
 app.post('/validate-with-rules', validateWithRules);
 
-// New JSON Data mapping endpoint
+// JSON Data mapping endpoint
 app.post('/map-json', mapJsonData);
 
-// New CSV to Json Conversion
+// CSV to Json Conversion
 app.post('/csv2json', convertCsvToJson);
 
-// New Flatten JSON
+// Flatten JSON
 app.post('/flatten', flattenJson);
 
+// JSON to YAML
 app.post('/json2yaml', convertJsonToYaml);
 
 // Start the server
