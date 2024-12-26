@@ -204,6 +204,7 @@
                         <li>Error handling for invalid JSON</li>
                         <li>Simple REST API endpoints</li>
                         <li>Lightweight and fast</li>
+                        <li>JSON key extraction (nested and top-level)</li>
                     </ul>
                 </div>
                 <div class="feature-card">
@@ -257,6 +258,17 @@
                         <li>Array index preservation</li>
                         <li>Deep nesting support</li>
                         <li>Path-based key generation</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>JSON Key Extraction</h3>
+                    <ul>
+                        <li>Extract all keys from JSON objects</li>
+                        <li>Separate top-level and nested keys</li>
+                        <li>Support for nested objects and arrays</li>
+                        <li>Maintain key hierarchy with dot notation</li>
+                        <li>Array index preservation</li>
                     </ul>
                 </div>
             </div>
@@ -491,6 +503,28 @@
                                 }
                             }<span class="json-punctuation">,</span>
                             <span class="json-key">"separator"</span><span class="json-punctuation">:</span> <span class="json-string">"."</span>
+                        }</code></pre>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h3>11. Extract JSON Keys</h3>
+                <div class="code-block">
+                    <pre><code>
+                        <span class="http-method">POST</span> /extract-keys
+                        <span class="http-header">Content-Type:</span> application/json
+                        
+                        {
+                            <span class="json-key">"data"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"name"</span><span class="json-punctuation">:</span> <span class="json-string">"John"</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"details"</span><span class="json-punctuation">:</span> {
+                                    <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">30</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"address"</span><span class="json-punctuation">:</span> {
+                                        <span class="json-key">"city"</span><span class="json-punctuation">:</span> <span class="json-string">"New York"</span>
+                                    }
+                                }<span class="json-punctuation">,</span>
+                                <span class="json-key">"hobbies"</span><span class="json-punctuation">:</span> [<span class="json-string">"reading"</span><span class="json-punctuation">,</span> <span class="json-string">"gaming"</span>]
+                            }
                         }</code></pre>
                 </div>
             </div>
