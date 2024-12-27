@@ -668,6 +668,123 @@ curl -X POST \
 }'
 ```
 
+#### POST /json2yaml
+- **Description**: Converts JSON content to YAML format
+- **Request Body**: 
+    ```json
+    {
+        "user": {
+            "name": "John Doe",
+            "age": 30,
+            "address": {
+                "street": "123 Main St",
+                "city": "New York"
+            }
+        }
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "success": true,
+        "message": "JSON successfully converted to YAML",
+        "data": "user:\n  name: John Doe\n  age: 30\n  address:\n    street: 123 Main St\n    city: New York",
+        "originalJson": {
+            "user": {
+                "name": "John Doe",
+                "age": 30,
+                "address": {
+                    "street": "123 Main St",
+                    "city": "New York"
+                }
+            }
+        }
+    }
+    ```
+
+#### POST /extract-keys
+- **Description**: Extracts all keys from a JSON object, separating top-level and nested keys
+- **Request Body**:
+    ```json
+    {
+        "data": {
+            "name": "John",
+            "details": {
+                "age": 30,
+                "address": {
+                    "street": "123 Main St",
+                    "city": "New York"
+                }
+            },
+            "hobbies": ["reading", "gaming"]
+        }
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "success": true,
+        "message": "Keys extracted successfully",
+        "keys": {
+            "all": [
+                "name",
+                "details.age",
+                "details.address.street",
+                "details.address.city",
+                "hobbies"
+            ],
+            "topLevel": [
+                "name",
+                "details",
+                "hobbies"
+            ],
+            "nested": [
+                "details.age",
+                "details.address.street",
+                "details.address.city"
+            ]
+        },
+        "originalData": {
+            // Original JSON object
+        }
+    }
+    ```
+
+#### POST /mask-json
+- **Description**: Masks sensitive values in JSON objects
+- **Request Body**:
+    ```json
+    {
+        "data": {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "password": "secret123",
+            "card": {
+                "number": "4111111111111111",
+                "cvv": "123"
+            }
+        },
+        "fieldsToMask": ["password", "card.number", "card.cvv"]
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "success": true,
+        "message": "JSON values masked successfully",
+        "data": {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "password": "********",
+            "card": {
+                "number": "************1111",
+                "cvv": "***"
+            }
+        }
+    }
+    ```
+````
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

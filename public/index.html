@@ -520,14 +520,55 @@
                                 <span class="json-key">"details"</span><span class="json-punctuation">:</span> {
                                     <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">30</span><span class="json-punctuation">,</span>
                                     <span class="json-key">"address"</span><span class="json-punctuation">:</span> {
-                                        <span class="json-key">"city"</span><span class="json-punctuation">:</span> <span class="json-string">"New York"</span>
+                                        <span class="json-key">"street"</span><span class="json-punctuation">:</span> <span class="json-string">"123 Main St"</span>
                                     }
-                                }<span class="json-punctuation">,</span>
-                                <span class="json-key">"hobbies"</span><span class="json-punctuation">:</span> [<span class="json-string">"reading"</span><span class="json-punctuation">,</span> <span class="json-string">"gaming"</span>]
+                                }
                             }
                         }</code></pre>
                 </div>
             </div>
+
+            <div class="feature-card">
+                <h3>12. Mask Sensitive JSON Data</h3>
+                <div class="code-block">
+                    <pre><code>
+                        <span class="http-method">POST</span> /mask-json
+                        <span class="http-header">Content-Type:</span> application/json
+                        
+                        {
+                            <span class="json-key">"data"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"name"</span><span class="json-punctuation">:</span> <span class="json-string">"John"</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"password"</span><span class="json-punctuation">:</span> <span class="json-string">"secret123"</span><span class="json-punctuation">,</span>
+                                <span class="json-key">"card"</span><span class="json-punctuation">:</span> {
+                                    <span class="json-key">"number"</span><span class="json-punctuation">:</span> <span class="json-string">"4111111111111111"</span>
+                                }
+                            }<span class="json-punctuation">,</span>
+                            <span class="json-key">"fieldsToMask"</span><span class="json-punctuation">:</span> [<span class="json-string">"password"</span><span class="json-punctuation">,</span> <span class="json-string">"card.number"</span>]
+                        }</code></pre>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h3>13. Convert JSON to YAML</h3>
+                <div class="code-block">
+                    <pre><code>
+                        <span class="http-method">POST</span> /json2yaml
+                        <span class="http-header">Content-Type:</span> application/json
+                        
+                        {
+                            <span class="json-key">"data"</span><span class="json-punctuation">:</span> {
+                                <span class="json-key">"user"</span><span class="json-punctuation">:</span> {
+                                    <span class="json-key">"name"</span><span class="json-punctuation">:</span> <span class="json-string">"John Doe"</span><span class="json-punctuation">,</span>
+                                    <span class="json-key">"age"</span><span class="json-punctuation">:</span> <span class="json-number">30</span>
+                                }
+                            }
+                        }</code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
         </section>
         <section id="contact">
             <div class="feature-grid">
