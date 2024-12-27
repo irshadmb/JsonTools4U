@@ -783,7 +783,7 @@ curl -X POST \
         }
     }
     ```
-````
+
 ## Contributing
 
 We welcome contributions from the community! Here's how you can help make jsontools4u even better:
@@ -832,7 +832,7 @@ Set up your development environment:
    git clone https://github.com/irshadmb/jsontools4u.git
    cd jsontools4u
    npm install
-````
+    ```
 
 ## License
 
