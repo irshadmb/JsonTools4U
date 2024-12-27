@@ -12,6 +12,7 @@ const { convertCsvToJson } = require('./controllers/convertCsvToJson');
 const { flattenJson } = require('./controllers/flattenJson');
 const { convertJsonToYaml } = require('./controllers/convertJsonToYaml');
 const { extractJsonKeys } = require('./controllers/extractJsonKeys');
+const { maskJsonValues } = require('./controllers/maskJsonValues');
 
 
 const app = express();
@@ -61,6 +62,8 @@ app.post('/flatten', flattenJson);
 app.post('/json2yaml', convertJsonToYaml);
 
 app.post('/extract-keys', extractJsonKeys);
+
+app.post('/mask-json', maskJsonValues);
 
 // Start the server
 app.listen(port, () => {
