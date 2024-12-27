@@ -784,6 +784,55 @@ curl -X POST \
     }
     ```
 ````
+## Contributing
+
+We welcome contributions from the community! Here's how you can help make jsontools4u even better:
+
+### Ways to Contribute
+
+1. **Report Bugs**
+   - Use the GitHub issue tracker to report bugs
+   - Describe the bug and include specific steps to reproduce it
+   - Share any relevant code snippets or error messages
+
+2. **Suggest Enhancements**
+   - Have ideas for new features? Open an issue with the "enhancement" tag
+   - Provide clear descriptions of the proposed feature
+   - Explain why this enhancement would be useful
+
+3. **Submit Pull Requests**
+   - Fork the repository
+   - Create a new branch for your feature (`git checkout -b feature/AmazingFeature`)
+   - Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+   - Push to the branch (`git push origin feature/AmazingFeature`)
+   - Open a Pull Request
+
+### Development Guidelines
+
+1. **Code Style**
+   - Follow existing code formatting patterns
+   - Use meaningful variable and function names
+   - Add comments for complex logic
+   - Keep functions focused and modular
+
+2. **Testing**
+   - Add tests for new features
+   - Ensure all tests pass before submitting PR
+   - Update existing tests if needed
+
+3. **Documentation**
+   - Update README.md with new features or changes
+   - Add JSDoc comments for new functions
+   - Include examples for new endpoints
+
+### Getting Started with Development
+
+Set up your development environment:
+   ```bash
+   git clone https://github.com/irshadmb/jsontools4u.git
+   cd jsontools4u
+   npm install
+````
 
 ## License
 
