@@ -13,11 +13,23 @@ const convertJsonToYaml = (req, res) => {
             });
         }
 
+        // Validate input is actually JSON
+        if (typeof jsonData !== 'object' || jsonData === null) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid JSON content provided',
+                error: 'Request body must be valid JSON',
+                receivedType: typeof jsonData
+            });
+        }
+
         // Convert JSON to YAML
         const yamlResult = yaml.dump(jsonData, {
             indent: 2,
             noRefs: true,
-            quotingType: '"'
+            quotingType: '"',
+            lineWidth: 80,
+            noCompatMode: true
         });
 
         res.status(200).json({
@@ -31,7 +43,11 @@ const convertJsonToYaml = (req, res) => {
         res.status(400).json({
             success: false,
             message: 'Error converting JSON to YAML',
-            error: error.message,
+            error: {
+                type: error.name,
+                message: error.message,
+                stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            },
             providedInput: jsonData
         });
     }

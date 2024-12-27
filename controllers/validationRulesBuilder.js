@@ -200,7 +200,7 @@ const validateFormat = (value, format, errors) => {
             }
             break;
         case 'date':
-            if (isNaN(Date.parse(value))) {
+            if (Number.isNaN(Date.parse(value))) {
                 errors.push('Invalid date format');
             }
             break;
