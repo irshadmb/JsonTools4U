@@ -353,18 +353,26 @@
         }
         
         function getRequestBody(api, input) {
+            if (!input || input.trim() === '') {
+                throw new Error('Input cannot be empty');
+            }
+
             switch(api) {
                 case 'yaml2json':
                 case 'xml2json':
                 case 'csv2json':
                     return input;
                 case 'convert':
-                    return JSON.stringify(input);
+                    return JSON.stringify(input.trim());
                 default:
                     try {
-                        return JSON.stringify(JSON.parse(input));
+                        const parsedInput = JSON.parse(input.trim());
+                        if (typeof parsedInput === 'undefined') {
+                            throw new Error('Invalid JSON input');
+                        }
+                        return JSON.stringify(parsedInput);
                     } catch {
-                        return input;
+                        throw new Error('Invalid JSON format');
                     }
             }
         }
