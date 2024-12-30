@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON Converter Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
         :root {
             --primary-color: #1a1a1a;
@@ -170,7 +172,203 @@
 
         .http-method { color: var(--accent-purple); }  /* Using the purple accent color */
         .http-header { color: var(--accent-blue); }    /* Using the blue accent color */
+    
+    /* Floating Icon */
+    .floating-icon {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(45deg, var(--accent-green), var(--accent-blue));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    .floating-icon i {
+        color: white;
+        font-size: 24px;
+    }
+
+    /* Playground Modal */
+    .playground-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 1000px;
+        background: var(--secondary-color);
+        border-radius: 12px;
+        padding: 2rem;
+        z-index: 1001;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.8);
+        z-index: 1000;
+    }
+
+    .playground-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .playground-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .input-section, .output-section {
+        background: var(--primary-color);
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .api-select {
+        width: 100%;
+        padding: 0.5rem;
+        background: var(--primary-color);
+        color: var(--text-color);
+        border: 1px solid var(--accent-blue);
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+
+    .playground-textarea {
+        width: 100%;
+        height: 300px;
+        background: var(--primary-color);
+        color: var(--text-color);
+        border: 1px solid var(--accent-green);
+        border-radius: 4px;
+        padding: 1rem;
+        font-family: 'Fira Code', monospace;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        background: linear-gradient(45deg, var(--accent-green), var(--accent-blue));
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 1rem;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+       
+    .output-area {
+        font-family: monospace;
+        white-space: pre;
+        width: 100%;
+        height: 300px;
+        overflow: auto;
+        padding: 10px;
+        box-sizing: border-box;
+        background: var(--primary-color);
+        color: var(--text-color);
+        border: 1px solid var(--accent-green);
+        border-radius: 4px;
+        resize: vertical;
+    }
     </style>
+    <script>
+        function togglePlayground() {
+            const modal = document.getElementById('playgroundModal');
+            const overlay = document.getElementById('modalOverlay');
+            
+            if (modal.style.display === 'block') {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            } else {
+                modal.style.display = 'block';
+                overlay.style.display = 'block';
+            }
+        }
+        
+        async function submitPlayground() {
+            const apiSelect = document.getElementById('apiSelect');
+            const inputArea = document.getElementById('inputArea');
+            const outputArea = document.getElementById('outputArea');
+            const selectedApi = apiSelect.value;
+            
+            if (!selectedApi) {
+                alert('Please select an API');
+                return;
+            }
+        
+            try {
+                const headers = {
+                    'Content-Type': getContentType(selectedApi)
+                };
+        
+                const response = await fetch(`/${selectedApi}`, {
+                    method: 'POST',
+                    headers: headers,
+                    body: getRequestBody(selectedApi, inputArea.value)
+                });
+        
+                const result = await response.json();
+                outputArea.textContent = JSON.stringify(result, null, 2);
+            } catch (error) {
+                outputArea.textContent = `Error: ${error.message}`;
+            }
+        }
+        
+        function getContentType(api) {
+            switch(api) {
+                case 'convert':
+                    return 'text/plain';  // Changed this to text/plain for convert endpoint
+                case 'yaml2json':
+                case 'xml2json':
+                case 'csv2json':
+                    return 'text/plain';
+                default:
+                    return 'application/json';
+            }
+        }
+        
+        function getRequestBody(api, input) {
+            switch(api) {
+                case 'yaml2json':
+                case 'xml2json':
+                case 'csv2json':
+                    return input;
+                case 'convert':
+                    return JSON.stringify(input);
+                default:
+                    try {
+                        return JSON.stringify(JSON.parse(input));
+                    } catch {
+                        return input;
+                    }
+            }
+        }
+        </script>
 </head>
 <body>
     <nav class="navbar">
@@ -602,6 +800,51 @@
                 </div>
             </div>
         </section>
+    </div>
+
+    <div class="floating-icon" onclick="togglePlayground()">
+        <i class="fas fa-code"></i>
+    </div>
+    
+    <div class="modal-overlay" id="modalOverlay"></div>
+    
+    <div class="playground-modal" id="playgroundModal">
+        <div class="playground-header">
+            <h2>JSON Tools Playground</h2>
+            <button class="close-btn" onclick="togglePlayground()">×</button>
+        </div>
+        
+        <select class="api-select" id="apiSelect">
+            <option value="">Select API</option>
+            <option value="convert">Convert String to JSON</option>
+            <option value="validate">Validate JSON</option>
+            <option value="query">Query JSON (JSONPath)</option>
+            <option value="yaml2json">YAML to JSON</option>
+            <option value="xml2json">XML to JSON</option>
+            <option value="csv2json">CSV to JSON</option>
+            <option value="flatten">Flatten JSON</option>
+            <option value="json2yaml">JSON to YAML</option>
+            <option value="extract-keys">Extract JSON Keys</option>
+            <option value="mask-json">Mask JSON Values</option>
+            <option value="build-validation-rule">Build Validation Rule</option>
+            <option value="validate-with-rules">Validate with Rules</option>
+            <option value="map-json">Map JSON Data</option>
+      
+        </select>
+        
+        <div class="playground-content">
+            <div class="input-section">
+                <h3>Input</h3>
+                <textarea id="inputArea" class="playground-textarea" placeholder="Enter your input here..."></textarea>
+            </div>
+            
+            <div class="output-section">
+                <h3>Output</h3>
+                <textarea id="outputArea" class="output-area"></textarea>
+            </div>
+        </div>
+        
+        <button class="submit-btn" onclick="submitPlayground()">Submit</button>
     </div>
 </body>
 </html>
