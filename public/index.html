@@ -309,6 +309,8 @@
                 overlay.style.display = 'block';
             }
         }
+
+       
         
         async function submitPlayground() {
             const apiSelect = document.getElementById('apiSelect');
@@ -322,16 +324,24 @@
             }
         
             try {
-                const headers = {
-                    'Content-Type': getContentType(selectedApi)
-                };
-        
-                const response = await fetch(`/${selectedApi}`, {
+                let url = `/${selectedApi}`;
+                if (selectedApi === 'query') {
+                    const queryPath = document.getElementById('queryPath').value;
+                    if (!queryPath) {
+                        alert('Please enter a JSONPath query');
+                        return;
+                    }
+                    url += `?path=${encodeURIComponent(queryPath)}`;
+                }
+
+                const response = await fetch(url, {
                     method: 'POST',
-                    headers: headers,
+                    headers: {
+                        'Content-Type': getContentType(selectedApi)
+                    },
                     body: getRequestBody(selectedApi, inputArea.value)
                 });
-        
+
                 const result = await response.json();
                 outputArea.textContent = JSON.stringify(result, null, 2);
             } catch (error) {
@@ -839,6 +849,10 @@
             <option value="map-json">Map JSON Data</option>
       
         </select>
+
+        <div id="queryParamDiv" style="display: none;">
+            <input type="text" id="queryPath" placeholder="Enter JSONPath query" class="api-select">
+        </div>
         
         <div class="playground-content">
             <div class="input-section">
@@ -854,5 +868,16 @@
         
         <button class="submit-btn" onclick="submitPlayground()">Submit</button>
     </div>
+    <script>
+         document.getElementById('apiSelect').addEventListener('change', function() {
+            console.log("API selected: ", this.value);
+            const queryParamDiv = document.getElementById('queryParamDiv');
+            if (this.value === 'query') {
+                queryParamDiv.style.display = 'block';
+            } else {
+                queryParamDiv.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
