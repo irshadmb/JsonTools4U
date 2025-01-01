@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON Converter Service</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <style>
         :root {
@@ -295,8 +296,150 @@
         border-radius: 4px;
         resize: vertical;
     }
+
+    .json-graph-container {
+        width: 100%;
+        height: 400px;
+        background: var(--primary-color);
+        border: 1px solid var(--accent-green);
+        border-radius: 4px;
+        overflow: hidden;
+        cursor: grab;
+    }
+
+    .json-graph-container:active {
+        cursor: grabbing;
+    }
+    .node circle {
+        fill: var(--accent-green);
+        stroke: var(--accent-blue);
+        stroke-width: 1.5px;
+    }
+
+    .node text {
+        font: 12px sans-serif;
+        fill: var(--text-color);
+    }
+
+    .link {
+        fill: none;
+        stroke: var(--accent-purple);
+        stroke-width: 1.5px;
+        opacity: 0.5;
+    }
     </style>
     <script>
+        function handleVisualization(jsonData) {
+            const visualizationContainer = document.getElementById('jsonVisualization');
+            const outputArea = document.getElementById('outputArea');
+            
+            // Show visualization container and hide output area
+            visualizationContainer.style.display = 'block';
+            outputArea.style.display = 'none';
+
+            // Clear previous visualization
+            visualizationContainer.innerHTML = '';
+
+            // Get container dimensions
+            const width = visualizationContainer.clientWidth;
+            const height = visualizationContainer.clientHeight;
+
+            // Create SVG with a group for panning
+            const svg = d3.select("#jsonVisualization")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            // Add zoom behavior
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 3]) // Set min and max zoom scale
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                });
+
+            svg.call(zoom);
+
+            // Create a group that will contain all elements
+            const g = svg.append("g")
+                .attr("transform", `translate(40, ${height / 2})`);
+
+            // Convert JSON to hierarchy
+            const root = d3.hierarchy(convertToHierarchy(jsonData));
+
+            // Create tree layout
+            const treeLayout = d3.tree()
+                .size([height - 100, width - 160]);
+
+            // Generate the tree
+            const treeData = treeLayout(root);
+
+            // Create links
+            const link = g.selectAll(".link")
+                .data(treeData.links())
+                .enter()
+                .append("path")
+                .attr("class", "link")
+                .attr("d", d3.linkHorizontal()
+                    .x(d => d.y)
+                    .y(d => d.x));
+
+            // Create nodes
+            const node = g.selectAll(".node")
+                .data(treeData.descendants())
+                .enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", d => `translate(${d.y},${d.x})`);
+
+            // Add circles to nodes
+            node.append("circle")
+                .attr("r", 4)
+                .attr("fill", "var(--accent-green)")
+                .attr("stroke", "var(--accent-blue)");
+
+            // Add labels to nodes
+            node.append("text")
+                .attr("dy", ".31em")
+                .attr("x", d => d.children ? -10 : 10)
+                .attr("text-anchor", d => d.children ? "end" : "start")
+                .text(d => d.data.name + (d.data.value ? ': ' + d.data.value : ''))
+                .style("fill", "var(--text-color)");
+
+            // Add hover effects
+            node.on("mouseover", function() {
+                d3.select(this).select("circle")
+                    .transition()
+                    .duration(200)
+                    .attr("r", 6);
+            })
+            .on("mouseout", function() {
+                d3.select(this).select("circle")
+                    .transition()
+                    .duration(200)
+                    .attr("r", 4);
+            });
+
+            // Add initial zoom transform to center the graph
+            const initialTransform = d3.zoomIdentity
+                .translate(width / 4, 0)
+                .scale(0.8);
+            svg.call(zoom.transform, initialTransform);
+        }
+       
+
+        // Helper function to convert JSON to hierarchy
+        function convertToHierarchy(obj, name = 'root') {
+            if (obj === null) return { name, value: 'null' };
+            if (typeof obj !== 'object') return { name, value: String(obj) };
+
+            const node = { name };
+            node.children = Array.isArray(obj)
+                ? obj.map((item, index) => convertToHierarchy(item, `[${index}]`))
+                : Object.entries(obj).map(([key, value]) => convertToHierarchy(value, key));
+
+            return node;
+        }
+
         function togglePlayground() {
             const modal = document.getElementById('playgroundModal');
             const overlay = document.getElementById('modalOverlay');
@@ -316,6 +459,8 @@
             const apiSelect = document.getElementById('apiSelect');
             const inputArea = document.getElementById('inputArea');
             const outputArea = document.getElementById('outputArea');
+            const visualizationContainer = document.getElementById('jsonVisualization');
+    
             const selectedApi = apiSelect.value;
             
             if (!selectedApi) {
@@ -324,6 +469,17 @@
             }
         
             try {
+                if (selectedApi === 'visualize') {
+                    // Handle visualization
+                    const jsonData = JSON.parse(inputArea.value);
+                    handleVisualization(jsonData);
+                    return;
+                }
+
+                // Reset display for other operations
+                visualizationContainer.style.display = 'none';
+                outputArea.style.display = 'block';
+
                 let url = `/${selectedApi}`;
                 if (selectedApi === 'query') {
                     const queryPath = document.getElementById('queryPath').value;
@@ -422,6 +578,35 @@
                         <li>Lightweight and fast</li>
                         <li>JSON key extraction (nested and top-level)</li>
                     </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>JSON Visualization</h3>
+                    <ul>
+                        <li>Interactive tree-based visualization of JSON structures</li>
+                        <li>Left-to-right hierarchical layout</li>
+                        <li>Pan and zoom functionality:
+                            <ul>
+                                <li>Click and drag to move the graph</li>
+                                <li>Mouse wheel to zoom in/out</li>
+                                <li>Scale limits (0.1x to 3x) for optimal viewing</li>
+                            </ul>
+                        </li>
+                        <li>Interactive node features:
+                            <ul>
+                                <li>Hover effects on nodes</li>
+                                <li>Clear parent-child relationships</li>
+                                <li>Value display for leaf nodes</li>
+                            </ul>
+                        </li>
+                        <li>Visual styling:
+                            <ul>
+                                <li>Color-coded nodes and connections</li>
+                                <li>Smooth transitions and animations</li>
+                                <li>Responsive layout adaptation</li>
+                            </ul>
+                        </li>                        
+                    </ul>                    
                 </div>
                 <div class="feature-card">
                     <h3>How to Use</h3>
@@ -847,6 +1032,7 @@
             <option value="build-validation-rule">Build Validation Rule</option>
             <option value="validate-with-rules">Validate with Rules</option>
             <option value="map-json">Map JSON Data</option>
+            <option value="visualize">Visualize JSON</option>
       
         </select>
 
@@ -862,6 +1048,7 @@
             
             <div class="output-section">
                 <h3>Output</h3>
+                <div id="jsonVisualization" class="json-graph-container" style="display: none;"></div>
                 <textarea id="outputArea" class="output-area"></textarea>
             </div>
         </div>
